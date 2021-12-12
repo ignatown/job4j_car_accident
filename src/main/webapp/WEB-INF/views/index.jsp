@@ -19,16 +19,24 @@
     <title>Accident</title>
 </head>
 <body>
-<h3> Hello, <b>${user}!</b> </h3>
+<h4>ACCIDENTS</h4> <br>
 <table class="table">
     <thead class="thead-dark">
     <tr>
-        <th scope="col">String</th>
+        <th scope="col">id</th>
+        <th scope="col">name</th>
+        <th scope="col">text</th>
+        <th scope="col">address</th>
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="${list}" var="s">
-        <tr><th scope="row">${s}</th></tr>
+    <c:forEach items="${accidentMap}" var="a">
+        <tr>
+            <th scope="row">${a.value.id}</th>
+            <td>${a.value.name}</td>
+            <td>${a.value.text}</td>
+            <td>${a.value.address}</td>
+        </tr>
     </c:forEach>
     </tbody>
 </table>
