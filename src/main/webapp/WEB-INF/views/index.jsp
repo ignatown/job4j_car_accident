@@ -16,10 +16,12 @@
             crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
     <title>Accident</title>
 </head>
 <body>
 <h4>ACCIDENTS</h4> <br>
+<a class="btn btn-outline-dark" href="<c:url value='/create'/>" role="button">New accident</a>
 <table class="table">
     <thead class="thead-dark">
     <tr>
@@ -27,6 +29,7 @@
         <th scope="col">name</th>
         <th scope="col">text</th>
         <th scope="col">address</th>
+        <th scope="col"></th>
     </tr>
     </thead>
     <tbody>
@@ -36,7 +39,7 @@
             <td>${a.value.name}</td>
             <td>${a.value.text}</td>
             <td>${a.value.address}</td>
-        </tr>
+            <td><a class="btn btn-outline-dark" href="<c:url value="/edit?id=${a.value.id}"/>" role="button">Edit</a></td>       </tr>
     </c:forEach>
     </tbody>
 </table>
