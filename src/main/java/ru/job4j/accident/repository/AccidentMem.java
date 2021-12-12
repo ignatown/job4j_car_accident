@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 import ru.job4j.accident.model.Accident;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
@@ -12,8 +13,16 @@ public class AccidentMem {
     private final AtomicInteger id = new AtomicInteger(1);
 
     public void add(Accident accident) {
-        accident.setId(id.getAndIncrement());
-        accidents.put(accident.getId(), accident);
+        if (!accidents.containsKey(accident.getId())) {
+            accident.setId(id.getAndIncrement());
+            accidents.put(accident.getId(), accident);
+        } else {
+            for (Map.Entry<Integer, Accident> acc : accidents.entrySet()) {
+                if (acc.getValue().getId() == accident.getId()) {
+                    accidents.put(acc.getKey(), accident);
+                }
+            }
+        }
     }
 
     public Accident get(int id) {

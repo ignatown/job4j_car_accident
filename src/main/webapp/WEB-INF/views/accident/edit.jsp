@@ -16,18 +16,18 @@
         crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<form action="<c:url value='/save'/>" method='POST'>
+<form action="<c:url value='/save?id=${accident.id}'/>" method='POST'>
     <div class="form-group">
         <label for="name">Name</label>
-        <input type="text" class="form-control" id="name" name="name">
+        <input type="text" class="form-control" id="name" name="name" value="${accident.name}">
     </div>
     <div class="form-group">
         <label for="text">Text</label>
-        <input type="text" class="form-control" id="text" name="text">
+        <input type="text" class="form-control" id="text" name="text" value="${accident.text}">
     </div>
     <div class="form-group">
         <label for="adr">Address</label>
-        <input type="text" class="form-control" id="adr" name="address">
+        <input type="text" class="form-control" id="adr" name="address" value="${accident.address}">
     </div>
     <button type="submit" class="btn btn-outline-secondary">Save</button>
 </form>
