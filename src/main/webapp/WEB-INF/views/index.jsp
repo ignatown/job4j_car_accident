@@ -33,13 +33,13 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="${accidentMap}" var="a">
+    <c:forEach items="${accidentList}" var="a">
         <tr>
-            <th scope="row">${a.value.id}</th>
-            <td>${a.value.name}</td>
-            <td>${a.value.text}</td>
-            <td>${a.value.address}</td>
-            <td><a class="btn btn-outline-dark" href="<c:url value="/edit?id=${a.value.id}"/>" role="button">Edit</a></td>       </tr>
+            <th scope="row">${a.id}</th>
+            <td>${a.name}</td>
+            <td>${a.text}</td>
+            <td>${a.address}</td>
+            <td><a class="btn btn-outline-dark" href="<c:url value="/edit?id=${a.id}"/>" role="button">Edit</a></td>       </tr>
     </c:forEach>
     </tbody>
 </table>
