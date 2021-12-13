@@ -24,16 +24,10 @@ public class AccidentMem {
     private final AtomicInteger id = new AtomicInteger(4);
 
     public void add(Accident accident) {
-        if (!accidents.containsKey(accident.getId())) {
+        if (accident.getId() == 0) {
             accident.setId(id.getAndIncrement());
-            accidents.put(accident.getId(), accident);
-        } else {
-            for (Map.Entry<Integer, Accident> acc : accidents.entrySet()) {
-                if (acc.getValue().getId() == accident.getId()) {
-                    accidents.put(acc.getKey(), accident);
-                }
-            }
         }
+        accidents.put(accident.getId(), accident);
     }
 
     public Accident get(int id) {
