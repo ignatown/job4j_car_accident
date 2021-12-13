@@ -29,6 +29,15 @@
         <label for="adr">Address</label>
         <input type="text" class="form-control" id="adr" name="address" value="${accident.address}">
     </div>
+    <div class="form-group">
+        <td>Type: </td>
+        <td>
+            <select name="type.id">
+                <c:forEach var="type" items="${types}" >
+                    <option value="${type.id}">${type.name}</option>
+                </c:forEach>
+            </select>
+    </div>
     <button type="submit" class="btn btn-outline-secondary">Save</button>
 </form>
 </body>

@@ -2,14 +2,23 @@ package ru.job4j.accident.repository;
 
 import org.springframework.stereotype.Repository;
 import ru.job4j.accident.model.Accident;
+import ru.job4j.accident.model.AccidentType;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
 public class AccidentMem {
+    private List<AccidentType> types = new ArrayList<>() {{
+            add(AccidentType.of(1, "None"));
+            add(AccidentType.of(2, "Two cars"));
+            add(AccidentType.of(3, "Car and man"));
+            add(AccidentType.of(4, "Car and bike"));
+        }};
+
     private HashMap<Integer, Accident> accidents = new HashMap<>() {{
         Accident accident1 = new Accident("name1", "text1", "address1");
         accident1.setId(1);
@@ -27,7 +36,12 @@ public class AccidentMem {
         if (accident.getId() == 0) {
             accident.setId(id.getAndIncrement());
         }
+        accident.setType(types.get(accident.getType().getId() - 1));
         accidents.put(accident.getId(), accident);
+    }
+
+    public List<AccidentType> getTypes() {
+        return types;
     }
 
     public Accident get(int id) {
