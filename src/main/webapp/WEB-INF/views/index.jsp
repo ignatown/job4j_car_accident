@@ -30,6 +30,7 @@
         <th scope="col">text</th>
         <th scope="col">address</th>
         <th scope="col">type</th>
+        <th scope="col">rules</th>
         <th scope="col"></th>
     </tr>
     </thead>
@@ -41,6 +42,7 @@
             <td>${a.text}</td>
             <td>${a.address}</td>
             <td>${a.type.name}</td>
+            <td>${a.rules}</td>
             <td><a class="btn btn-outline-dark" href="<c:url value="/edit?id=${a.id}"/>" role="button">Edit</a></td>       </tr>
     </c:forEach>
     </tbody>

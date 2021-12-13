@@ -3,6 +3,7 @@ package ru.job4j.accident.repository;
 import org.springframework.stereotype.Repository;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
+import ru.job4j.accident.model.Rule;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,6 +18,12 @@ public class AccidentMem {
             add(AccidentType.of(2, "Two cars"));
             add(AccidentType.of(3, "Car and man"));
             add(AccidentType.of(4, "Car and bike"));
+        }};
+
+    private List<Rule> rules = new ArrayList<>() {{
+            add(Rule.of(1, "Rule. 1"));
+            add(Rule.of(2, "Rule. 2"));
+            add(Rule.of(3, "Rule. 3"));
         }};
 
     private HashMap<Integer, Accident> accidents = new HashMap<>() {{
@@ -38,6 +45,10 @@ public class AccidentMem {
         }
         accident.setType(types.get(accident.getType().getId() - 1));
         accidents.put(accident.getId(), accident);
+    }
+
+    public List<Rule> getRules() {
+        return rules;
     }
 
     public List<AccidentType> getTypes() {

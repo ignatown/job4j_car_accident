@@ -38,6 +38,15 @@
                 </c:forEach>
             </select>
     </div>
+    <div class="form-group">
+        <td>Rules:</td>
+        <td>
+            <select name="rIds" multiple>
+                <c:forEach var="rule" items="${rules}" >
+                    <option value="${rule.id}">${rule.name}</option>
+                </c:forEach>
+            </select>
+    </div>
     <button type="submit" class="btn btn-outline-secondary">Save</button>
 </form>
 </body>
