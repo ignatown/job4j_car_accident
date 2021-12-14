@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Repository
 public class AccidentMem {
     private Map<Integer, AccidentType> types = new HashMap<>();
-    private List<Rule> rules = new ArrayList<>();
+    private Map<Integer, Rule> rules = new HashMap<>();
     private HashMap<Integer, Accident> accidents = new HashMap<>();
     private final AtomicInteger id = new AtomicInteger(4);
 
@@ -23,22 +23,24 @@ public class AccidentMem {
         accidents.put(1, Accident.of(1, "name1", "text1", "address1"));
         accidents.put(2, Accident.of(2, "name2", "text2", "address2"));
         accidents.put(3, Accident.of(3, "name3", "text3", "address3"));
-        rules.add(Rule.of(1, "Rule. 1"));
-        rules.add(Rule.of(2, "Rule. 2"));
-        rules.add(Rule.of(3, "Rule. 3"));
+        rules.put(1, Rule.of(1, "Rule. 1"));
+        rules.put(2, Rule.of(2, "Rule. 2"));
+        rules.put(3, Rule.of(3, "Rule. 3"));
     }
 
     public void add(Accident accident) {
         if (accident.getId() == 0) {
             accident.setId(id.getAndIncrement());
         }
-        accident.setType(types.get(accident.getType().getId()));
+        accident.setType(types.get(accident.getType().getId() - 1));
         accidents.put(accident.getId(), accident);
     }
 
-    public List<Rule> getRules() {
-        return rules;
-    }
+    public Map<Integer, Rule> getRulesMap() {
+        return rules; }
+
+    public Collection<Rule> getRulesArray() {
+        return rules.values(); }
 
     public Collection<AccidentType> getTypes() {
         return types.values();
