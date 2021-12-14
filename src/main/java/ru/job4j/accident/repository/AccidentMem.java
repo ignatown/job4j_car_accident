@@ -5,45 +5,34 @@ import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
 public class AccidentMem {
-    private List<AccidentType> types = new ArrayList<>() {{
-            add(AccidentType.of(1, "None"));
-            add(AccidentType.of(2, "Two cars"));
-            add(AccidentType.of(3, "Car and man"));
-            add(AccidentType.of(4, "Car and bike"));
-        }};
-
-    private List<Rule> rules = new ArrayList<>() {{
-            add(Rule.of(1, "Rule. 1"));
-            add(Rule.of(2, "Rule. 2"));
-            add(Rule.of(3, "Rule. 3"));
-        }};
-
-    private HashMap<Integer, Accident> accidents = new HashMap<>() {{
-        Accident accident1 = new Accident("name1", "text1", "address1");
-        accident1.setId(1);
-        Accident accident2 = new Accident("name2", "text2", "address2");
-        accident2.setId(2);
-        Accident accident3 = new Accident("name3", "text3", "address3");
-        accident3.setId(3);
-        put(1, accident1);
-        put(2, accident2);
-        put(3, accident3);
-    }};
+    private Map<Integer, AccidentType> types = new HashMap<>();
+    private List<Rule> rules = new ArrayList<>();
+    private HashMap<Integer, Accident> accidents = new HashMap<>();
     private final AtomicInteger id = new AtomicInteger(4);
+
+    public AccidentMem() {
+        types.put(1, AccidentType.of(1, "None"));
+        types.put(2, AccidentType.of(2, "Two cars"));
+        types.put(3, AccidentType.of(3, "Car and man"));
+        types.put(4, AccidentType.of(4, "Car and bike"));
+        accidents.put(1, Accident.of(1, "name1", "text1", "address1"));
+        accidents.put(2, Accident.of(2, "name2", "text2", "address2"));
+        accidents.put(3, Accident.of(3, "name3", "text3", "address3"));
+        rules.add(Rule.of(1, "Rule. 1"));
+        rules.add(Rule.of(2, "Rule. 2"));
+        rules.add(Rule.of(3, "Rule. 3"));
+    }
 
     public void add(Accident accident) {
         if (accident.getId() == 0) {
             accident.setId(id.getAndIncrement());
         }
-        accident.setType(types.get(accident.getType().getId() - 1));
+        accident.setType(types.get(accident.getType().getId()));
         accidents.put(accident.getId(), accident);
     }
 
@@ -51,8 +40,8 @@ public class AccidentMem {
         return rules;
     }
 
-    public List<AccidentType> getTypes() {
-        return types;
+    public Collection<AccidentType> getTypes() {
+        return types.values();
     }
 
     public Accident get(int id) {

@@ -18,6 +18,12 @@ public class Accident {
         this.type = AccidentType.of(0, "None");
     }
 
+    public static Accident of(int id, String name, String text, String address) {
+        Accident accident = new Accident(name, text, address);
+        accident.setId(id);
+        return accident;
+    }
+
     public AccidentType getType() {
         return type;
     }
