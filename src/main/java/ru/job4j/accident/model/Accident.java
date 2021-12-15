@@ -24,6 +24,10 @@ public class Accident {
         return accident;
     }
 
+    public void addRule(Rule rule) {
+        rules.add(rule);
+    }
+
     public AccidentType getType() {
         return type;
     }

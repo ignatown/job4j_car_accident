@@ -3,50 +3,51 @@ package ru.job4j.accident.service;
 import org.springframework.stereotype.Service;
 import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
-import ru.job4j.accident.repository.AccidentMem;
+import ru.job4j.accident.repository.AccidentJdbcTemplate;
 import ru.job4j.accident.model.Accident;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+
 @Service
 public class AccidentService {
-    private final AccidentMem accidentMem;
-    public AccidentService(AccidentMem accidentMem) {
-        this.accidentMem = accidentMem;
+    private final AccidentJdbcTemplate accidentJdbcTemplate;
+    public AccidentService(AccidentJdbcTemplate accidentJdbcTemplate) {
+        this.accidentJdbcTemplate = accidentJdbcTemplate;
     }
 
     public Collection<AccidentType> getTypes() {
-        return accidentMem.getTypes();
+        return accidentJdbcTemplate.getTypes();
     }
 
     public Collection<Rule> getRulesArray() {
-        return accidentMem.getRulesArray();
+        return accidentJdbcTemplate.getRulesArray();
     }
 
     public void add(Accident accident) {
-        accidentMem.add(accident);
+        accidentJdbcTemplate.add(accident);
     }
 
     public Accident get(int id) {
-        return accidentMem.get(id);
+        return accidentJdbcTemplate.get(id);
     }
 
-    public void addAccident(Accident accident) {
-        accidentMem.add(accident);
-    }
-    public Accident getAccident(int id) {
-        return accidentMem.get(id);
-    }
     public Collection<Accident> findAll() {
-        return accidentMem.getAll();
+        return accidentJdbcTemplate.getAll();
     }
 
     public void setRuleToAccident(Accident accident, HttpServletRequest req) {
         Set<Rule> rules = new HashSet<>();
         for (String s : req.getParameterValues("rIds")) {
-            rules.add(accidentMem.getRulesMap().get(Integer.parseInt(s)));
+            rules.add(getRulesMap().get(Integer.parseInt(s)));
         }
         accident.setRules(rules);
+    }
+
+    public Map<Integer, Rule> getRulesMap() {
+        Map<Integer, Rule> rsl = new HashMap<>();
+        for (Rule r: getRulesArray()) {
+            rsl.put(r.getId(), r);
+        }
+        return rsl;
     }
 }
