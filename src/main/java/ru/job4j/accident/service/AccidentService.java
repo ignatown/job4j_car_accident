@@ -46,7 +46,7 @@ public class AccidentService {
         Set<Rule> rules = new HashSet<>();
         for (String s : req.getParameterValues("rIds")) {
             rules.add(accidentMem.getRulesMap().get(Integer.parseInt(s)));
-            accident.setRules(rules);
         }
+        accident.setRules(rules);
     }
 }
