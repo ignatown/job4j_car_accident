@@ -5,17 +5,13 @@ import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
 import ru.job4j.accident.repository.AccidentMem;
 import ru.job4j.accident.model.Accident;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-
 @Service
 public class AccidentService {
-
     private final AccidentMem accidentMem;
-
     public AccidentService(AccidentMem accidentMem) {
         this.accidentMem = accidentMem;
     }
@@ -39,11 +35,9 @@ public class AccidentService {
     public void addAccident(Accident accident) {
         accidentMem.add(accident);
     }
-
     public Accident getAccident(int id) {
         return accidentMem.get(id);
     }
-
     public Collection<Accident> findAll() {
         return accidentMem.getAll();
     }
