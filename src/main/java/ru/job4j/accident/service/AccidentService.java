@@ -1,6 +1,7 @@
 package ru.job4j.accident.service;
 
 import org.springframework.stereotype.Service;
+import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
 import ru.job4j.accident.repository.AccidentMem;
 import ru.job4j.accident.model.Accident;
@@ -19,6 +20,22 @@ public class AccidentService {
         this.accidentMem = accidentMem;
     }
 
+    public Collection<AccidentType> getTypes() {
+        return accidentMem.getTypes();
+    }
+
+    public Collection<Rule> getRulesArray() {
+        return accidentMem.getRulesArray();
+    }
+
+    public void add(Accident accident) {
+        accidentMem.add(accident);
+    }
+
+    public Accident get(int id) {
+        return accidentMem.get(id);
+    }
+
     public void addAccident(Accident accident) {
         accidentMem.add(accident);
     }
@@ -33,9 +50,9 @@ public class AccidentService {
 
     public void setRuleToAccident(Accident accident, HttpServletRequest req) {
         Set<Rule> rules = new HashSet<>();
-        for (String s:req.getParameterValues("rIds")) {
+        for (String s : req.getParameterValues("rIds")) {
             rules.add(accidentMem.getRulesMap().get(Integer.parseInt(s)));
+            accident.setRules(rules);
         }
-        accident.setRules(rules);
     }
 }
