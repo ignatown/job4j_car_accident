@@ -33,7 +33,7 @@ public class AccidentJdbcTemplate {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbc.update(connection -> {
             PreparedStatement statement
-                    = connection.prepareStatement("INSERT INTO accidents(name, text, address, accident_type_id) "
+                    = connection.prepareStatement("INSERT INTO accident(name, text, address, accident_type_id) "
                     + "VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, accident.getName());
             statement.setString(2, accident.getText());
@@ -47,7 +47,7 @@ public class AccidentJdbcTemplate {
     }
 
     private Accident update(Accident accident) {
-        jdbc.update("update accidents set name = ?, text = ?, address = ?, accident_type_id = ?"
+        jdbc.update("update accident set name = ?, text = ?, address = ?, accident_type_id = ?"
                         + " where id = ?",
                 accident.getName(), accident.getText(), accident.getAddress(),
                 accident.getType().getId(), accident.getId());
@@ -70,7 +70,7 @@ public class AccidentJdbcTemplate {
 
     public List<Accident> getAll() {
         return jdbc.query("select a.id as id, a.name as name, a.text as text, a.address as address, a.accident_type_id as type_id, "
-                        + "t.name as type_name from accidents as a left join types as t on a.accident_type_id = t.id",
+                        + "t.name as type_name from accident as a left join types as t on a.accident_type_id = t.id",
                 (rs, row) -> {
                     Accident accident = new Accident(
                             rs.getString("name"),
@@ -98,7 +98,7 @@ public class AccidentJdbcTemplate {
     public Accident get(int id) {
         final Object[] args = {id};
         Accident accident = jdbc.queryForObject("select a.id as id, a.name as name, a.text as text, a.address as address, a.accident_type_id as type_id, "
-                        + "t.name as type_name from accidents as a left join types as t on a.accident_type_id = t.id where a.id = ?", args,
+                        + "t.name as type_name from accident as a left join types as t on a.accident_type_id = t.id where a.id = ?", args,
                 (rs, row) -> {
                     Accident ac = new Accident(
                             rs.getString("name"),
