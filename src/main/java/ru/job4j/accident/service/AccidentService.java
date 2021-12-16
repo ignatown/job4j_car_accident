@@ -3,6 +3,7 @@ package ru.job4j.accident.service;
 import org.springframework.stereotype.Service;
 import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
+import ru.job4j.accident.repository.AccidentHibernate;
 import ru.job4j.accident.repository.AccidentJdbcTemplate;
 import ru.job4j.accident.model.Accident;
 import javax.servlet.http.HttpServletRequest;
@@ -10,29 +11,34 @@ import java.util.*;
 
 @Service
 public class AccidentService {
-    private final AccidentJdbcTemplate accidentJdbcTemplate;
-    public AccidentService(AccidentJdbcTemplate accidentJdbcTemplate) {
-        this.accidentJdbcTemplate = accidentJdbcTemplate;
+    private final AccidentHibernate accidents;
+
+    public AccidentService(AccidentHibernate accidents) {
+        this.accidents = accidents;
     }
 
     public Collection<AccidentType> getTypes() {
-        return accidentJdbcTemplate.getTypes();
+        return accidents.getTypes();
     }
 
     public Collection<Rule> getRulesArray() {
-        return accidentJdbcTemplate.getRulesArray();
+        return accidents.getRulesArray();
     }
 
     public void add(Accident accident) {
-        accidentJdbcTemplate.add(accident);
+        if (accident.getId() == 0) {
+            accidents.add(accident);
+        } else {
+            accidents.update(accident);
+        }
     }
 
     public Accident get(int id) {
-        return accidentJdbcTemplate.get(id);
+        return accidents.get(id);
     }
 
     public Collection<Accident> findAll() {
-        return accidentJdbcTemplate.getAll();
+        return accidents.getAll();
     }
 
     public void setRuleToAccident(Accident accident, HttpServletRequest req) {
