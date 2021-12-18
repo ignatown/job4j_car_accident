@@ -8,7 +8,7 @@ import ru.job4j.accident.model.Rule;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@Repository
+/*@Repository*/
 public class AccidentMem {
     private Map<Integer, AccidentType> types = new HashMap<>();
     private Map<Integer, Rule> rules = new HashMap<>();

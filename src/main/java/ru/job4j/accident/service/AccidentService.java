@@ -4,26 +4,34 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
-import ru.job4j.accident.repository.AccidentHibernate;
-import ru.job4j.accident.repository.AccidentJdbcTemplate;
+import ru.job4j.accident.repository.*;
 import ru.job4j.accident.model.Accident;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 @Service
 public class AccidentService {
-    private final AccidentHibernate accidents;
+    private final AccidentRepository accidentRepository;
+    private final AccidentTypeRepository accidentTypeRepository;
+    private final RuleRepository ruleRepository;
 
-    public AccidentService(AccidentHibernate accidents) {
-        this.accidents = accidents;
+    public AccidentService(AccidentRepository accidentRepository, AccidentTypeRepository accidentTypeRepository, RuleRepository ruleRepository) {
+        this.accidentRepository = accidentRepository;
+        this.accidentTypeRepository = accidentTypeRepository;
+        this.ruleRepository = ruleRepository;
     }
 
     public Collection<AccidentType> getTypes() {
-        return accidents.getTypes();
+            List<AccidentType> accidentTypeList = new ArrayList<>();
+            accidentTypeRepository.findAll().forEach(accidentTypeList::add);
+            return accidentTypeList;
     }
 
     public Collection<Rule> getRulesArray() {
-        return accidents.getRulesArray();
+        List<Rule> rules = new ArrayList<>();
+        ruleRepository.findAll().forEach(rules::add);
+        return rules;
     }
 
     @Transactional
@@ -31,23 +39,25 @@ public class AccidentService {
         for (String s : req.getParameterValues("rIds")) {
             accident.addRule(getRulesMap().get(Integer.parseInt(s)));
         }
-        if (accident.getId() == 0) {
-            accidents.add(accident);
-        } else {
-            accidents.update(accident);
-        }
+     //   if (accident.getId() == 0) {
+            accidentRepository.save(accident);
+         //   accidents.add(accident);
+     //   } else {
+         //   accidentRepository.
+       //     accidents.update(accident);
+     //   }
     }
 
     public Accident get(int id) {
-        return accidents.get(id);
+            return accidentRepository.findAccidentById(id);
     }
 
     public void delete(int id) {
-       accidents.delete(id);
+       accidentRepository.deleteById(id);
     }
 
     public Collection<Accident> findAll() {
-        return accidents.getAll();
+        return accidentRepository.findAllAccident();
     }
 
     public Map<Integer, Rule> getRulesMap() {
