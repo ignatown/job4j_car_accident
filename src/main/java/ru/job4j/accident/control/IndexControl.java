@@ -5,23 +5,23 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import ru.job4j.accident.repository.AccidentRepository;
 import ru.job4j.accident.model.Accident;
+import ru.job4j.accident.service.AccidentService;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Controller
 public class IndexControl {
-    private final AccidentRepository accidents;
+    private final AccidentService service;
 
-    public IndexControl(AccidentRepository accidents) {
-        this.accidents = accidents;
+    public IndexControl(AccidentService service) {
+        this.service = service;
     }
 
     @GetMapping("/")
     public String index(Model model) {
-        List<Accident> res = new ArrayList<>();
-        accidents.findAll().forEach(res::add);
-        model.addAttribute("accidents", res);
+        model.addAttribute("accidentList", service.findAll());
         return "index";
     }
 }
