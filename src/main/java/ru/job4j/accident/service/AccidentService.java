@@ -39,13 +39,7 @@ public class AccidentService {
         for (String s : req.getParameterValues("rIds")) {
             accident.addRule(getRulesMap().get(Integer.parseInt(s)));
         }
-     //   if (accident.getId() == 0) {
             accidentRepository.save(accident);
-         //   accidents.add(accident);
-     //   } else {
-         //   accidentRepository.
-       //     accidents.update(accident);
-     //   }
     }
 
     public Accident get(int id) {
