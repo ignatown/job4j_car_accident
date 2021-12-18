@@ -35,8 +35,8 @@ public class AccidentService {
     }
 
     @Transactional
-    public void add(Accident accident, HttpServletRequest req) {
-        for (String s : req.getParameterValues("rIds")) {
+    public void add(Accident accident, String[] ids) {
+        for (String s : ids) {
             accident.addRule(getRulesMap().get(Integer.parseInt(s)));
         }
             accidentRepository.save(accident);
