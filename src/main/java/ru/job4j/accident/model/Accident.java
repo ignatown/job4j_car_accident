@@ -1,6 +1,7 @@
 package ru.job4j.accident.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -20,7 +21,7 @@ public class Accident {
     @JoinTable(name = "accidents_rules",
             joinColumns = @JoinColumn(name = "accident_id"),
             inverseJoinColumns = @JoinColumn(name = "rule_id"))
-    private Set<Rule> rules;
+    private Set<Rule> rules = new HashSet<>();
 
     public Accident() {
     }

@@ -43,8 +43,17 @@
             <td>${a.address}</td>
             <td>${a.type.name}</td>
             <td>${a.rules}</td>
-            <td><a class="btn btn-outline-dark" href="<c:url value="/edit?id=${a.id}"/>" role="button">Edit</a></td>       </tr>
-    </c:forEach>
+            <td> <div class="btn-group" role="group">
+                <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Action
+                </button>
+                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                    <a class="dropdown-item" href="<c:url value="/edit?id=${a.id}"/>">Edit</a>
+                    <a class="dropdown-item" href="<c:url value="/delete?id=${a.id}"/>">Delete</a>
+                </div>
+            </div>
+            </td>
+            </c:forEach>
     </tbody>
 </table>
 </body>

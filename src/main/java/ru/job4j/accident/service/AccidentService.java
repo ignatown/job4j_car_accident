@@ -1,6 +1,7 @@
 package ru.job4j.accident.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
 import ru.job4j.accident.repository.AccidentHibernate;
@@ -25,7 +26,11 @@ public class AccidentService {
         return accidents.getRulesArray();
     }
 
-    public void add(Accident accident) {
+    @Transactional
+    public void add(Accident accident, HttpServletRequest req) {
+        for (String s : req.getParameterValues("rIds")) {
+            accident.addRule(getRulesMap().get(Integer.parseInt(s)));
+        }
         if (accident.getId() == 0) {
             accidents.add(accident);
         } else {
@@ -37,16 +42,12 @@ public class AccidentService {
         return accidents.get(id);
     }
 
-    public Collection<Accident> findAll() {
-        return accidents.getAll();
+    public void delete(int id) {
+       accidents.delete(id);
     }
 
-    public void setRuleToAccident(Accident accident, HttpServletRequest req) {
-        Set<Rule> rules = new HashSet<>();
-        for (String s : req.getParameterValues("rIds")) {
-            rules.add(getRulesMap().get(Integer.parseInt(s)));
-        }
-        accident.setRules(rules);
+    public Collection<Accident> findAll() {
+        return accidents.getAll();
     }
 
     public Map<Integer, Rule> getRulesMap() {

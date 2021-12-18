@@ -28,8 +28,7 @@ public class AccidentControl {
 
     @PostMapping("/save")
     public String save(@ModelAttribute Accident accident, HttpServletRequest req) {
-        service.setRuleToAccident(accident, req);
-        service.add(accident);
+        service.add(accident, req);
         return "redirect:/";
     }
 
@@ -39,5 +38,11 @@ public class AccidentControl {
         model.addAttribute("rules", service.getRulesArray());
         model.addAttribute("accident", service.get(id));
         return "accident/edit";
+    }
+
+    @GetMapping("/delete")
+    public String delete(@RequestParam("id") int id) {
+       service.delete(id);
+       return "redirect:/";
     }
 }
