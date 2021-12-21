@@ -24,7 +24,7 @@ public class AccidentService {
 
     public Collection<AccidentType> getTypes() {
             List<AccidentType> accidentTypeList = new ArrayList<>();
-            accidentTypeRepository.findAll().forEach(accidentTypeList::add);
+            accidentTypeRepository.findAllByOrderById().forEach(accidentTypeList::add);
             return accidentTypeList;
     }
 

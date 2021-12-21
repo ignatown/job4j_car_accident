@@ -17,17 +17,18 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <title>Accident LOGIN</title>
+    <title>Accident REGISTRATION</title>
 <body>
 <h4>ACCIDENTS</h4>
-<h5>LOGIN</h5><br>
-<a href="<c:url value='/registration'/>" class="btn btn-info" role="button">Registration</a>.
+<h5>REGISTRATION</h5><br>
+
+<a href="<c:url value='/login'/>" class="btn btn-info" role="button">Login</a>.
 <c:if test="${not empty errorMessage}">
     <div style="color:red; font-weight: bold; margin: 30px 0px;">
             ${errorMessage}
     </div>
 </c:if>
-<form name='login' action="<c:url value='/login'/>" method='POST'>
+<form name='login' action="<c:url value='/registration'/>" method='POST'>
     <div class="form-group">
         <label for="username">Username:</label>
         <input type="text" class="form-control" id="username" name="username">
