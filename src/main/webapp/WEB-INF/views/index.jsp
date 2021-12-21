@@ -18,11 +18,14 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <title>Accident</title>
-</head>
 <body>
 <h4>ACCIDENTS</h4> <br>
+<div>
+</head>
 <a class="btn btn-outline-dark" href="<c:url value='/create'/>" role="button">New accident</a>
-<table class="table">
+    <h6>  Login as : ${user.username} </h6>
+</div>
+    <table class="table">
     <thead class="thead-dark">
     <tr>
         <th scope="col">id</th>
