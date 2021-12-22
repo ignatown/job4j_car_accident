@@ -23,7 +23,7 @@
 <div>
 </head>
 <a class="btn btn-outline-dark" href="<c:url value='/create'/>" role="button">New accident</a>
-    <h6>  Login as : ${user.username} </h6>
+    <a class="btn btn-danger" href="<c:url value='/logout'/>" role="button">Logout from <b>${user.username}</b> </a>
 </div>
     <table class="table">
     <thead class="thead-dark">
